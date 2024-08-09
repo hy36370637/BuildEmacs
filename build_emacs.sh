@@ -18,7 +18,7 @@ echo "Configuring Emacs build options..."
 
 # make 및 make install 실행
 echo "Building and installing Emacs..."
-make && make install
+make && sudo make install
 
 # 스크립트 완료 메시지
 echo "Emacs build and installation completed successfully!"
