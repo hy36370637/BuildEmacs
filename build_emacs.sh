@@ -25,7 +25,9 @@ echo "Running autogen.sh..."
 
 # configure 실행
 echo "Configuring Emacs build options..."
-./configure --with-ns --without-x --without-dbus --without-gpm --without-makeinfo --without-emacsclient --without-pop --without-gsettings
+# jpeg 포함
+# CPPFLAGS="-I/opt/homebrew/opt/jpeg/include" LDFLAGS="-L/opt/homebrew/opt/jpeg/lib" ./configure --with-ns --without-x --without-dbus --without-gpm --without-pop --without-gsettings
+./configure --with-ns --without-x --without-dbus --without-gpm --without-pop --without-gsettings
 
 # make 및 make install 실행
 echo "Building and installing Emacs..."
