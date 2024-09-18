@@ -25,8 +25,14 @@ echo "Running autogen.sh..."
 
 # configure 실행
 echo "Configuring Emacs build options..."
-# jpeg 포함
-# CPPFLAGS="-I/opt/homebrew/opt/jpeg/include" LDFLAGS="-L/opt/homebrew/opt/jpeg/lib" ./configure --with-ns --without-x --without-dbus --without-gpm --without-pop --without-gsettings --with-native-compilation
+
+## jpeg 포함
+export CFLAGS="-O3 -march=native -I/opt/homebrew/opt/jpeg/include"
+export LDFLAGS="-O3 -L/opt/homebrew/opt/jpeg/lib"
+
+# CFLAGS와 LDFLAGS 설정  - 속도 향상위해
+# export CFLAGS="-O3 -march=native"   #현재 CPU에 최적화된 코드  
+# export LDFLAGS="-O3"                            #가장 높은 수준의 최적화. or  -O2
 ./configure --with-ns --without-x --without-dbus --without-gpm --without-pop --without-gsettings
 
 # make 및 make install 실행
