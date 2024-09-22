@@ -40,5 +40,10 @@ echo "Building and installing Emacs..."
 # make && sudo make install
 make & make install
 
+# src/emacs -Q 정상동작 후 make install 하여 실행때 손상된 파일로 실행불가 땐
+# sudo codesign --force --deep --sign - nextstep/Emacs.app
+# 제어센터-개인정보 & 보안 - 보안-그래도 열기
+
+
 # 스크립트 완료 메시지
 echo "Emacs build and installation completed successfully!"
