@@ -33,7 +33,7 @@ export LDFLAGS="-O3 -L/opt/homebrew/opt/jpeg/lib"
 # CFLAGS와 LDFLAGS 설정  - 속도 향상위해
 # export CFLAGS="-O3 -march=native"   #현재 CPU에 최적화된 코드  
 # export LDFLAGS="-O3"                            #가장 높은 수준의 최적화. or  -O2
-./configure --with-ns --without-x --without-dbus --without-gpm --without-pop --without-gsettings
+./configure --with-ns --without-x --without-dbus --without-gpm --without-pop --without-gsettings --with-native-compilation=aot --without-compress-install
 
 # make 및 make install 실행
 echo "Building and installing Emacs..."
