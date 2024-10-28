@@ -33,16 +33,20 @@ export LDFLAGS="-O3 -L/opt/homebrew/opt/jpeg/lib"
 # CFLAGS와 LDFLAGS 설정  - 속도 향상위해
 # export CFLAGS="-O3 -march=native"   #현재 CPU에 최적화된 코드  
 # export LDFLAGS="-O3"                            #가장 높은 수준의 최적화. or  -O2
-./configure --with-ns --without-x --without-dbus --without-gpm --without-pop --without-gsettings --with-native-compilation=aot --without-compress-install
+./configure --with-ns --without-x --without-dbus --without-gpm --without-pop --without-gsettings --with-native-compilation --without-compress-install
 
 # make 및 make install 실행
 echo "Building and installing Emacs..."
 # make && sudo make install
 make & make install
 
-# src/emacs -Q 정상동작 후 make install 하여 실행때 손상된 파일로 실행불가 땐
+# src/emacs -Q 정상동작 / make install 하여 손상된 파일로 실행불가 땐
 # sudo codesign --force --deep --sign - nextstep/Emacs.app
 # 제어센터-개인정보 & 보안 - 보안-그래도 열기
+# 위의 방법 미해결. 게이트키퍼 격리 속성 제거
+# sudo xattr -rd com.apple.quarantine /Applications/Emacs.app
+## 격리 속성 원상복구
+# sudo xattr -w com.apple.quarantine '0081;64b6e2ac;Safari;' /Applications/Emacs.app
 
 
 # 스크립트 완료 메시지
