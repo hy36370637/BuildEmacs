@@ -13,15 +13,29 @@ else
   echo "No existing directory found. Cloning into $dir_name..."
 fi
 
-# Emacs 소스코드 클론
-git clone git://git.sv.gnu.org/emacs.git "$dir_name"
+# # Emacs 소스코드 클론
+# git clone git://git.sv.gnu.org/emacs.git "$dir_name"
 
-# Emacs 디렉토리로 이동
-cd "$dir_name" || { echo "Failed to enter the $dir_name directory"; exit 1; }
+# # Emacs 디렉토리로 이동
+# cd "$dir_name" || { echo "Failed to enter the $dir_name directory"; exit 1; }
 
-# autogen 실행
-echo "Running autogen.sh..."
-./autogen.sh
+# # autogen 실행
+# echo "Running autogen.sh..."
+# ./autogen.sh
+
+# 질문
+read -p "Would you like to clone and continue from start? (y/n): " answer
+if [[ $answer == "y" ]]; then
+    # Emacs 소스코드 클론
+    git clone git://git.sv.gnu.org/emacs.git "$dir_name"
+
+    # Emacs 디렉토리로 이동
+    cd "$dir_name" || { echo "Failed to enter the $dir_name directory"; exit 1; }
+
+    # autogen 실행
+    echo "Running autogen.sh..."
+    ./autogen.sh
+fi
 
 # configure 실행
 echo "Configuring Emacs build options..."
