@@ -23,7 +23,7 @@ fi
 # echo "Running autogen.sh..."
 # ./autogen.sh
 
-# 질문
+# 질문 - 소스 다운 or 아닐지 결정(예, pretest처럼 소스 이미 다운했을 경우 'n')
 read -p "Would you like to clone and continue from start? (y/n): " answer
 if [[ $answer == "y" ]]; then
     # Emacs 소스코드 클론
@@ -31,11 +31,10 @@ if [[ $answer == "y" ]]; then
 
     # Emacs 디렉토리로 이동
     cd "$dir_name" || { echo "Failed to enter the $dir_name directory"; exit 1; }
-
-    # autogen 실행
-    echo "Running autogen.sh..."
-    ./autogen.sh
 fi
+echo "Running autogen.sh..."
+./autogen.sh
+# fi
 
 # configure 실행
 echo "Configuring Emacs build options..."
@@ -45,9 +44,11 @@ export CFLAGS="-O3 -march=native -I/opt/homebrew/opt/jpeg/include"
 export LDFLAGS="-O3 -L/opt/homebrew/opt/jpeg/lib"
 
 # CFLAGS와 LDFLAGS 설정  - 속도 향상위해
+    # autogen 실행
+    # autogen 실행
 # export CFLAGS="-O3 -march=native"   #현재 CPU에 최적화된 코드  
 # export LDFLAGS="-O3"                            #가장 높은 수준의 최적화. or  -O2
-./configure --with-ns --without-x --without-dbus --without-gpm --without-pop --without-gsettings --with-native-compilation --without-compress-install
+./configure --without-x --without-dbus --without-gpm --without-pop --without-gsettings --without-compress-install --disable-gc-mark-trace
 
 # make 및 make install 실행
 echo "Building and installing Emacs..."
@@ -61,7 +62,6 @@ make & make install
 # sudo xattr -rd com.apple.quarantine /Applications/Emacs.app
 ## 격리 속성 원상복구
 # sudo xattr -w com.apple.quarantine '0081;64b6e2ac;Safari;' /Applications/Emacs.app
-
 
 # 스크립트 완료 메시지
 echo "Emacs build and installation completed successfully!"
