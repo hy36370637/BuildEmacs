@@ -47,13 +47,26 @@ echo "Configuring Emacs build options..."
 #PKG_CONFIG_PATH="/opt/homebrew/opt/imagemagick/lib/pkgconfig" # brew --prefix imagemagick  위치알기
 
 #### 종합
-PKG_CONFIG_PATH="/opt/homebrew/opt/imagemagick/lib/pkgconfig" \
-CPPFLAGS="-I/opt/homebrew/opt/imagemagick/include/ImageMagick-7" \
-CFLAGS="-O3 -march=native -I/opt/homebrew/opt/jpeg/include" \
-LDFLAGS="-O3 -L/opt/homebrew/opt/imagemagick/lib -L/opt/homebrew/opt/jpeg/lib" \
-./configure \
-  --with-ns \
-  --with-imagemagick \
+export PKG_CONFIG_PATH="/opt/homebrew/opt/imagemagick/lib/pkgconfig"
+
+export CPPFLAGS="\
+-I/opt/homebrew/opt/imagemagick/include/ImageMagick-7 \
+-I/opt/homebrew/opt/jpeg/include \
+-I/opt/homebrew/opt/libpng/include \
+-I/opt/homebrew/opt/libtiff/include \
+-I/opt/homebrew/opt/webp/include"
+
+export CFLAGS="-O3 -march=native $CPPFLAGS"
+
+export LDFLAGS="\
+-L/opt/homebrew/opt/imagemagick/lib \
+-L/opt/homebrew/opt/jpeg/lib \
+-L/opt/homebrew/opt/libpng/lib \
+-L/opt/homebrew/opt/libtiff/lib \
+-L/opt/homebrew/opt/webp/lib"
+
+##
+./configure --with-ns --with-imagemagick \
   --without-x --without-dbus --without-gpm --without-pop \
   --without-gsettings --without-compress-install --disable-gc-mark-trace \
   --with-native-compilation
