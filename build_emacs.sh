@@ -40,15 +40,31 @@ echo "Running autogen.sh..."
 echo "Configuring Emacs build options..."
 
 ## jpeg 포함
-export CFLAGS="-O3 -march=native -I/opt/homebrew/opt/jpeg/include"
-export LDFLAGS="-O3 -L/opt/homebrew/opt/jpeg/lib"
+# export CFLAGS="-O3 -march=native -I/opt/homebrew/opt/jpeg/include"
+# export LDFLAGS="-O3 -L/opt/homebrew/opt/jpeg/lib"
+
+## imagemagick
+#PKG_CONFIG_PATH="/opt/homebrew/opt/imagemagick/lib/pkgconfig" # brew --prefix imagemagick  위치알기
+
+#### 종합
+PKG_CONFIG_PATH="/opt/homebrew/opt/imagemagick/lib/pkgconfig" \
+CPPFLAGS="-I/opt/homebrew/opt/imagemagick/include/ImageMagick-7" \
+CFLAGS="-O3 -march=native -I/opt/homebrew/opt/jpeg/include" \
+LDFLAGS="-O3 -L/opt/homebrew/opt/imagemagick/lib -L/opt/homebrew/opt/jpeg/lib" \
+./configure \
+  --with-ns \
+  --with-imagemagick \
+  --without-x --without-dbus --without-gpm --without-pop \
+  --without-gsettings --without-compress-install --disable-gc-mark-trace \
+  --with-native-compilation
+
 
 # CFLAGS와 LDFLAGS 설정  - 속도 향상위해
     # autogen 실행
     # autogen 실행
 # export CFLAGS="-O3 -march=native"   #현재 CPU에 최적화된 코드  
 # export LDFLAGS="-O3"                            #가장 높은 수준의 최적화. or  -O2
-./configure --without-x --without-dbus --without-gpm --without-pop --without-gsettings --without-compress-install --disable-gc-mark-trace
+#./configure --without-x --without-dbus --without-gpm --without-pop --without-gsettings --without-compress-install --disable-gc-mark-trace --with-xwidgets --with-native-compilation --with-ns
 
 # make 및 make install 실행
 echo "Building and installing Emacs..."
